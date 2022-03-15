@@ -1,29 +1,30 @@
 import 'package:xml/xml.dart';
+import '../utils.dart';
 import 'package:intl/intl.dart';
 
 class RssCategory {
-  String domain;
+  String? domain;
   String category;
 
-  RssCategory({required this.category, this.domain = ''});
+  RssCategory({required this.category, this.domain});
 }
 
 class RssItem {
   String title;
-  String link;
+  String? link;
   String description;
-  DateTime publicationDate;
-  String guid;
-  String author;
+  DateTime? publicationDate;
+  String? guid;
+  String? author;
   late List<RssCategory> categories = [];
 
   RssItem({
-    required this.title,
-    required this.link,
-    required this.description,
-    required this.guid,
-    required this.publicationDate,
-    this.author = '',
+    this.title = 'No title',
+    this.link,
+    this.description = 'No description',
+    this.guid,
+    this.publicationDate,
+    this.author,
   });
 
   String get shortDescription {
@@ -33,15 +34,23 @@ class RssItem {
         : '${description.substring(0, cutoff)}...';
   }
 
+  String get publicationDateString {
+    DateFormat fmt = DateFormat('EEE, yyyy MM dd, HH:mm:ss');
+    if (publicationDate != null) {
+      return fmt.format(publicationDate as DateTime);
+    }
+    return '';
+  }
+
   static RssItem fromXml(XmlElement xml) {
-    String title = xml.findElements('title').first.innerText;
-    String link = xml.findElements('link').first.innerText;
-    String description = xml.findElements('description').first.innerText;
-    String guid = xml.findElements('guid').first.innerText;
-    DateFormat format = DateFormat("EEE, dd MMM yyyy hh:mm:ss zzz");
-    DateTime publicationDate =
-        format.parse(xml.findElements('publicationDate').first.innerText, true);
-    String author = xml.findElements('author').first.innerText;
+    String title = xml.getElement('title')?.innerText ?? 'No title';
+    String? link = xml.getElement('link')?.innerText;
+    String description =
+        xml.getElement('description')?.innerText ?? 'No description';
+    String? guid = xml.getElement('guid')?.innerText;
+    DateTime? publicationDate =
+        parseDateString(xml.getElement('pubDate')?.innerText);
+    String? author = xml.getElement('author')?.innerText;
     Iterable<XmlElement> xmlCategories = xml.findElements('category');
     List<RssCategory> categories = [];
 

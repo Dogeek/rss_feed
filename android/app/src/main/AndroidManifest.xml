@@ -3,7 +3,7 @@ package="com.example.rss_feed" android:installLocation="auto">
     <!-- Required to fetch data from the internet. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="rss_feed"
+        android:label="RSSReader"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

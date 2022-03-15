@@ -42,21 +42,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    RssFeed feed = RssFeed(
-      title: 'test',
-      link: 'https://www.example.com',
-      description: 'A sample lorem ipsum...',
-    );
-    for (int i = 0; i < 10; i++) {
-      feed.items.add(RssItem(
-          title: 'item $i',
-          link: 'https://www.example.com',
-          description: 'Lorem ipsum',
-          guid: 'item $i',
-          publicationDate: DateTime.now(),
-          ));
-    }
-    _feeds.add(feed);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),

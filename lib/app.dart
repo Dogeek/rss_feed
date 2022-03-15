@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './src/pages/home.dart';
 import './src/pages/add_feed.dart';
 import './src/pages/view_feed.dart';
+import './src/pages/view_item.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class App extends StatelessWidget {
         '/': (context) => const HomePage(title: 'RSS Reader'),
         '/add_feed': (context) => const AddFeedPage(title: 'Add a new feed'),
         '/view_feed': (context) => const ViewFeedPage(),
+        '/view_item': (context) => const ViewItemPage(),
       },
     );
   }
