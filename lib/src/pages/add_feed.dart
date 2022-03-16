@@ -25,7 +25,6 @@ class _AddFeedPageState extends State<AddFeedPage> {
 
     // Save the state
     prefs.setStringList('feeds', feeds);
-
     // Return to homepage
     Navigator.pop(context);
   }

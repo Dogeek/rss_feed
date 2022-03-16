@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<RssFeed> _feeds = [];
 
-  void _doReloadFeeds() async {
+  void _doReloadFeeds({BuildContext? context}) async {
     final prefs = await SharedPreferences.getInstance();
     List<RssFeed> feeds = [];
     for (String feedUrl in prefs.getStringList('feeds') ?? []) {
@@ -38,6 +38,14 @@ class _HomePageState extends State<HomePage> {
 
   void _moveToNewFeedPage() {
     Navigator.pushNamed(context, "/add_feed");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback(
+      (_) => _doReloadFeeds(context: context),
+    );
   }
 
   @override
